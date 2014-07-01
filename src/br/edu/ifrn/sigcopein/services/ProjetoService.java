@@ -5,8 +5,8 @@
  */
 package br.edu.ifrn.sigcopein.services;
 
-import br.edu.ifrn.sigcopein.bean.Servidor;
-import br.edu.ifrn.sigcopein.dao.ServidorDao;
+import br.edu.ifrn.sigcopein.bean.Projeto;
+import br.edu.ifrn.sigcopein.dao.ProjetoDao;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
 import java.util.List;
 
@@ -14,23 +14,23 @@ import java.util.List;
  *
  * @author 1935921
  */
-public class ServidorService {
+public class ProjetoService {
 
-    private ServidorDao dao;
+    private ProjetoDao dao;
     private final String PERSISTENCE_UNIT = "SigCOPEINPU";
     private SimpleEntityManager simpleEntityManager;
 
-    public ServidorService(SimpleEntityManager simpleEntityManager) {
+    public ProjetoService(SimpleEntityManager simpleEntityManager) {
         this.simpleEntityManager = simpleEntityManager;
-        dao = new ServidorDao(simpleEntityManager.getEntityManager());
+        dao = new ProjetoDao(simpleEntityManager.getEntityManager());
     }
 
-    public ServidorService() {
+    public ProjetoService() {
         this.simpleEntityManager = new SimpleEntityManager(PERSISTENCE_UNIT);
-        dao = new ServidorDao(simpleEntityManager.getEntityManager());
+        dao = new ProjetoDao(simpleEntityManager.getEntityManager());
     }
 
-    public void save(Servidor service) {
+    public void save(Projeto service) {
         service.setHabilitado(true);
         try {
             simpleEntityManager.beginTransaction();
@@ -43,7 +43,7 @@ public class ServidorService {
         }
     }
 
-    public void update(Servidor service) {
+    public void update(Projeto service) {
         try {
             simpleEntityManager.beginTransaction();
             //costumer.validate();
@@ -55,7 +55,7 @@ public class ServidorService {
         }
     }
 
-    public void remove(Servidor service) {
+    public void remove(Projeto service) {
         service.setHabilitado(false);
         try {
             simpleEntityManager.beginTransaction();
@@ -68,7 +68,7 @@ public class ServidorService {
         }
     }
 
-    public List<Servidor> findAll() {
+    public List<Projeto> findAll() {
         return dao.findAll();
     }
 }

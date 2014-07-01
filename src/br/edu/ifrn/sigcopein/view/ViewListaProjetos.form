@@ -31,6 +31,7 @@
                   <Component id="btnExcluir" linkSize="1" max="32767" attributes="0"/>
                   <Component id="btnEditar" linkSize="1" alignment="0" pref="94" max="32767" attributes="0"/>
                   <Component id="btnRelatorio" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnProjeto" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
@@ -49,9 +50,11 @@
                       <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnRelatorio" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnProjeto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" pref="498" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="502" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -66,7 +69,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tbServidor">
+        <Component class="javax.swing.JTable" name="tbProjeto">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="0" rowCount="4"/>
@@ -110,6 +113,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnProjeto">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ver Projeto"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProjetoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

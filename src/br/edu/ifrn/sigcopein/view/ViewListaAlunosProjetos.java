@@ -5,10 +5,12 @@
  */
 package br.edu.ifrn.sigcopein.view;
 
-import br.edu.ifrn.sigcopein.bean.Servidor;
+import br.edu.ifrn.sigcopein.bean.Aluno;
+import br.edu.ifrn.sigcopein.bean.AlunoProjeto;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
-import br.edu.ifrn.sigcopein.services.ServidorService;
-import br.edu.ifrn.sigcopein.tabela.TabelaServidor;
+import br.edu.ifrn.sigcopein.services.AlunoProjetoService;
+import br.edu.ifrn.sigcopein.tabela.TabelaAluno;
+import br.edu.ifrn.sigcopein.tabela.TabelaAlunoProjeto;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -16,23 +18,23 @@ import javax.swing.JOptionPane;
  *
  * @author 1935921
  */
-public class ViewListaServidores extends javax.swing.JInternalFrame {
+public class ViewListaAlunosProjetos extends javax.swing.JInternalFrame {
 
-    private List<Servidor> lista = null;
-    private ServidorService service = new ServidorService(new SimpleEntityManager());
+    private List<AlunoProjeto> lista = null;
+    private AlunoProjetoService service = new AlunoProjetoService(new SimpleEntityManager());
 
     /**
-     * Creates new form ViewListaServidores
+     * Creates new form ViewListaAlunoes
      */
-    public ViewListaServidores() {
+    public ViewListaAlunosProjetos() {
         initComponents();
         carregarTabela();
     }
 
     private void carregarTabela() {
         lista = service.findAll();
-        TabelaServidor tb = new TabelaServidor(lista);
-        tbServidor.setModel(tb);
+        TabelaAlunoProjeto tb = new TabelaAlunoProjeto(lista);
+        tbAluno.setModel(tb);
     }
 
     /**
@@ -45,7 +47,7 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbServidor = new javax.swing.JTable();
+        tbAluno = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -53,7 +55,7 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
-        tbServidor.setModel(new javax.swing.table.DefaultTableModel(
+        tbAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -64,7 +66,7 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tbServidor);
+        jScrollPane1.setViewportView(tbAluno);
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -131,17 +133,17 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(null, true, null);
+        ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(null, true, null);
         view.setVisible(true);
         carregarTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        if (tbServidor.getSelectedRow() != -1) {
-            TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
-            Servidor s = tb.get(tbServidor.getSelectedRow());
-            ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(null, true, s);
+        if (tbAluno.getSelectedRow() != -1) {
+            TabelaAluno tb = (TabelaAluno) tbAluno.getModel();
+            Aluno s = tb.get(tbAluno.getSelectedRow());
+            ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(null, true, s);
             view.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um servidor");
@@ -151,9 +153,9 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-         if (tbServidor.getSelectedRow() != -1) {
-            TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
-            Servidor s = tb.get(tbServidor.getSelectedRow());
+         if (tbAluno.getSelectedRow() != -1) {
+            TabelaAlunoProjeto tb = (TabelaAlunoProjeto) tbAluno.getModel();
+            AlunoProjeto s = tb.get(tbAluno.getSelectedRow());
             int op = JOptionPane.showConfirmDialog(null, "Deseja exlcuir");
             if(op == JOptionPane.YES_OPTION){
                 service.remove(s);
@@ -171,6 +173,6 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbServidor;
+    private javax.swing.JTable tbAluno;
     // End of variables declaration//GEN-END:variables
 }

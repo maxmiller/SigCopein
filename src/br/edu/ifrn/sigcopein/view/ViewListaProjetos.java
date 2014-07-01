@@ -5,34 +5,41 @@
  */
 package br.edu.ifrn.sigcopein.view;
 
-import br.edu.ifrn.sigcopein.bean.Servidor;
+import br.edu.ifrn.sigcopein.bean.Projeto;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
-import br.edu.ifrn.sigcopein.services.ServidorService;
-import br.edu.ifrn.sigcopein.tabela.TabelaServidor;
+import br.edu.ifrn.sigcopein.services.ProjetoService;
+import br.edu.ifrn.sigcopein.tabela.TabelaProjeto;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author 1935921
  */
-public class ViewListaServidores extends javax.swing.JInternalFrame {
+public class ViewListaProjetos extends javax.swing.JInternalFrame {
 
-    private List<Servidor> lista = null;
-    private ServidorService service = new ServidorService(new SimpleEntityManager());
+    private List<Projeto> lista = null;
+    private ProjetoService service = new ProjetoService(new SimpleEntityManager());
 
     /**
-     * Creates new form ViewListaServidores
+     * Creates new form ViewListaProjetoes
      */
-    public ViewListaServidores() {
+    public ViewListaProjetos() {
         initComponents();
         carregarTabela();
     }
 
     private void carregarTabela() {
         lista = service.findAll();
-        TabelaServidor tb = new TabelaServidor(lista);
-        tbServidor.setModel(tb);
+        TabelaProjeto tb = new TabelaProjeto(lista);
+        tbProjeto.setModel(tb);
     }
 
     /**
@@ -45,15 +52,16 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbServidor = new javax.swing.JTable();
+        tbProjeto = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
+        btnProjeto = new javax.swing.JButton();
 
         setClosable(true);
 
-        tbServidor.setModel(new javax.swing.table.DefaultTableModel(
+        tbProjeto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -64,7 +72,7 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tbServidor);
+        jScrollPane1.setViewportView(tbProjeto);
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +98,13 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
         btnRelatorio.setText("Relatório");
 
+        btnProjeto.setText("Ver Projeto");
+        btnProjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProjetoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,7 +117,8 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -121,8 +137,10 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRelatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProjeto)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -131,17 +149,17 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(null, true, null);
+        ViewIncluirEditarProjetos view = new ViewIncluirEditarProjetos(null, true, null);
         view.setVisible(true);
         carregarTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        if (tbServidor.getSelectedRow() != -1) {
-            TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
-            Servidor s = tb.get(tbServidor.getSelectedRow());
-            ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(null, true, s);
+        if (tbProjeto.getSelectedRow() != -1) {
+            TabelaProjeto tb = (TabelaProjeto) tbProjeto.getModel();
+            Projeto s = tb.get(tbProjeto.getSelectedRow());
+            ViewIncluirEditarProjetos view = new ViewIncluirEditarProjetos(null, true, s);
             view.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um servidor");
@@ -151,11 +169,11 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-         if (tbServidor.getSelectedRow() != -1) {
-            TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
-            Servidor s = tb.get(tbServidor.getSelectedRow());
+        if (tbProjeto.getSelectedRow() != -1) {
+            TabelaProjeto tb = (TabelaProjeto) tbProjeto.getModel();
+            Projeto s = tb.get(tbProjeto.getSelectedRow());
             int op = JOptionPane.showConfirmDialog(null, "Deseja exlcuir");
-            if(op == JOptionPane.YES_OPTION){
+            if (op == JOptionPane.YES_OPTION) {
                 service.remove(s);
             }
         } else {
@@ -164,13 +182,41 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
         carregarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProjetoActionPerformed
+        // TODO add your handling code here:
+        if (tbProjeto.getSelectedRow() >= 0) {
+            BufferedOutputStream bos = null;
+            try {
+                Projeto pro = ((TabelaProjeto) tbProjeto.getModel()).get(tbProjeto.getSelectedRow());
+                File f = new File(pro.getNomeAnexo());
+                bos = new BufferedOutputStream(new FileOutputStream(f));
+                bos.write(pro.getProjeto()); //Gravamos os bytes lá  
+                bos.close(); //Fechamos o stream.
+                Runtime.getRuntime().exec("cmd /c start "+f.getAbsolutePath());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ViewListaProjetos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ViewListaProjetos.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    bos.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ViewListaProjetos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um projeto");
+        }
+    }//GEN-LAST:event_btnProjetoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnProjeto;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbServidor;
+    private javax.swing.JTable tbProjeto;
     // End of variables declaration//GEN-END:variables
 }

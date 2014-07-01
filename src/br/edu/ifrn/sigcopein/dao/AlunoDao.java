@@ -6,6 +6,7 @@
 
 package br.edu.ifrn.sigcopein.dao;
 
+import br.edu.ifrn.sigcopein.bean.Aluno;
 import br.edu.ifrn.sigcopein.bean.Servidor;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,15 +15,15 @@ import javax.persistence.EntityManager;
  *
  * @author 1935921
  */
-public class ServidorDao extends GenericDao<Long, Servidor>{
+public class AlunoDao extends GenericDao<Long, Aluno>{
 
-    public ServidorDao(EntityManager entityManager) {
+    public AlunoDao(EntityManager entityManager) {
         super(entityManager);
     }
 
     @Override
-    public List<Servidor> findAll() {
-        return getEntityManager().createNamedQuery("Servidor.findAll", Servidor.class).getResultList();
+    public List<Aluno> findAll() {
+        return getEntityManager().createNamedQuery("Aluno.findAll", Aluno.class).getResultList();
     }
 
   

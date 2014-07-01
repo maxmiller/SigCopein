@@ -3,6 +3,12 @@
   <persistence-unit name="SigCOPEINPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>br.edu.ifrn.sigcopein.bean.Servidor</class>
+    <class>br.edu.ifrn.sigcopein.bean.AlunoProjeto</class>
+    <class>br.edu.ifrn.sigcopein.bean.Aluno</class>
+    <class>br.edu.ifrn.sigcopein.bean.Projeto</class>
+    <class>br.edu.ifrn.sigcopein.bean.ServidorProjeto</class>
+    <class>br.edu.ifrn.sigcopein.bean.ServidorAnexo</class>
+    <class>br.edu.ifrn.sigcopein.bean.AlunoAnexo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigcopein?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="123456"/>

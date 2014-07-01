@@ -5,8 +5,9 @@
  */
 package br.edu.ifrn.sigcopein.services;
 
-import br.edu.ifrn.sigcopein.bean.Servidor;
-import br.edu.ifrn.sigcopein.dao.ServidorDao;
+import br.edu.ifrn.sigcopein.bean.Aluno;
+import br.edu.ifrn.sigcopein.bean.AlunoProjeto;
+import br.edu.ifrn.sigcopein.dao.AlunoDao;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
 import java.util.List;
 
@@ -14,23 +15,23 @@ import java.util.List;
  *
  * @author 1935921
  */
-public class ServidorService {
+public class AlunoService {
 
-    private ServidorDao dao;
+    private AlunoDao dao;
     private final String PERSISTENCE_UNIT = "SigCOPEINPU";
     private SimpleEntityManager simpleEntityManager;
 
-    public ServidorService(SimpleEntityManager simpleEntityManager) {
+    public AlunoService(SimpleEntityManager simpleEntityManager) {
         this.simpleEntityManager = simpleEntityManager;
-        dao = new ServidorDao(simpleEntityManager.getEntityManager());
+        dao = new AlunoDao(simpleEntityManager.getEntityManager());
     }
 
-    public ServidorService() {
+    public AlunoService() {
         this.simpleEntityManager = new SimpleEntityManager(PERSISTENCE_UNIT);
-        dao = new ServidorDao(simpleEntityManager.getEntityManager());
+        dao = new AlunoDao(simpleEntityManager.getEntityManager());
     }
 
-    public void save(Servidor service) {
+    public void save(Aluno service) {
         service.setHabilitado(true);
         try {
             simpleEntityManager.beginTransaction();
@@ -43,7 +44,7 @@ public class ServidorService {
         }
     }
 
-    public void update(Servidor service) {
+    public void update(Aluno service) {
         try {
             simpleEntityManager.beginTransaction();
             //costumer.validate();
@@ -55,7 +56,7 @@ public class ServidorService {
         }
     }
 
-    public void remove(Servidor service) {
+    public void remove(Aluno service) {
         service.setHabilitado(false);
         try {
             simpleEntityManager.beginTransaction();
@@ -68,7 +69,7 @@ public class ServidorService {
         }
     }
 
-    public List<Servidor> findAll() {
+    public List<Aluno> findAll() {
         return dao.findAll();
     }
 }
