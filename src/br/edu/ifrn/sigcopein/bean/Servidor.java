@@ -55,9 +55,9 @@ public class Servidor implements Serializable {
     @Column(name = "servidor_id")
     private Integer servidorId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servidorId")
-    private List<ServidorProjeto> servidorProjetoList;
+    private List<Setor> setorList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servidorId")
-    private List<ServidorAnexo> servidorAnexoList;
+    private List<ServidorProjeto> servidorProjetoList;
 
     public Servidor() {
     }
@@ -114,21 +114,21 @@ public class Servidor implements Serializable {
     }
 
     @XmlTransient
+    public List<Setor> getSetorList() {
+        return setorList;
+    }
+
+    public void setSetorList(List<Setor> setorList) {
+        this.setorList = setorList;
+    }
+
+    @XmlTransient
     public List<ServidorProjeto> getServidorProjetoList() {
         return servidorProjetoList;
     }
 
     public void setServidorProjetoList(List<ServidorProjeto> servidorProjetoList) {
         this.servidorProjetoList = servidorProjetoList;
-    }
-
-    @XmlTransient
-    public List<ServidorAnexo> getServidorAnexoList() {
-        return servidorAnexoList;
-    }
-
-    public void setServidorAnexoList(List<ServidorAnexo> servidorAnexoList) {
-        this.servidorAnexoList = servidorAnexoList;
     }
 
     @Override

@@ -5,7 +5,7 @@
  */
 package br.edu.ifrn.sigcopein.tabela;
 
-import br.edu.ifrn.sigcopein.bean.Projeto;
+import br.edu.ifrn.sigcopein.bean.Edital;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,25 +14,25 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author 1935921
  */
-public class TabelaProjeto extends AbstractTableModel {
+public class TabelaEdital extends AbstractTableModel {
 
-    private List<Projeto> dados;
-    private String[] colunas = {"CÓDIGO","NOME", "EDITAL", "DATA DE INÍCIO", "DATA DE FIM"};
+    private List<Edital> dados;
+    private String[] colunas = {"CODIGO", "DESCRIÇÃO"};
 
-    public TabelaProjeto(List<Projeto> lista) {
+    public TabelaEdital(List<Edital> lista) {
         if (lista == null) {
-            dados = new ArrayList<Projeto>();
+            dados = new ArrayList<Edital>();
         } else {
             dados = lista;
         }
     }
 
-    public TabelaProjeto() {
-        dados = new ArrayList<Projeto>();
+    public TabelaEdital() {
+        dados = new ArrayList<Edital>();
 
     }
 
-    public void addRow(Projeto p) {
+    public void addRow(Edital p) {
         this.dados.add(p);
         this.fireTableDataChanged();
     }
@@ -55,15 +55,10 @@ public class TabelaProjeto extends AbstractTableModel {
     public Object getValueAt(int linha, int coluna) {
         switch (coluna) {
             case 0:
-                return dados.get(linha).getProjetoId();
+                return dados.get(linha).getEditalId();
             case 1:
-                return dados.get(linha).getNome();
-            case 2:
-                return dados.get(linha).getEditalId() !=null ? dados.get(linha).getEditalId().getDescricao():"N/A";
-            case 3:
-                return dados.get(linha).getDataInicio();
-            case 4:
-                return dados.get(linha).getDataFim();
+                return dados.get(linha).getDescricao();
+          
         }
         return null;
     }
@@ -73,7 +68,7 @@ public class TabelaProjeto extends AbstractTableModel {
         this.fireTableRowsDeleted(linha, linha);
     }
 
-    public Projeto get(int linha) {
+    public Edital get(int linha) {
         return this.dados.get(linha);
     }
 

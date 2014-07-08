@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/util/SigUtils.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/dao/SimpleEntityManager.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/bean/Aluno.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/bean/ServidorProjeto.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/bean/AlunoAnexo.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/dao/AlunoDao.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/bean/Servidor.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/util/DateUtil.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/dao/ProjetoDao.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/tabela/TabelaProjeto.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/bean/Projeto.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/view/ViewIncluirEditarAlunoProjeto.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/META-INF/persistence.xml</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/bean/ServidorAnexo.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/dao/GenericDao.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/services/AlunoProjetoService.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/dao/ServidorDao.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/bean/AlunoProjeto.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/services/ProjetoService.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/dao/AlunoProjetoDao.java</file>
+            <file>file:/C:/Users/1935921/Documents/NetBeansProjects/SigCOPEIN/src/br/edu/ifrn/sigcopein/view/ViewIncluirEditarProjetos.java</file>
+        </group>
+    </open-files>
+</project-private>

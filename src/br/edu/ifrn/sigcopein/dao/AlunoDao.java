@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
  *
  * @author 1935921
  */
-public class AlunoDao extends GenericDao<Long, Aluno>{
+public class AlunoDao extends GenericDao<Integer, Aluno>{
 
     public AlunoDao(EntityManager entityManager) {
         super(entityManager);
@@ -25,6 +25,11 @@ public class AlunoDao extends GenericDao<Long, Aluno>{
     public List<Aluno> findAll() {
         return getEntityManager().createNamedQuery("Aluno.findAll", Aluno.class).getResultList();
     }
+    
+    public Aluno findByMatricula(String matricula){
+        return getEntityManager().createNamedQuery("Aluno.findByMatricula",Aluno.class).setParameter("matricula", matricula).getSingleResult();
+    }
+
 
   
    

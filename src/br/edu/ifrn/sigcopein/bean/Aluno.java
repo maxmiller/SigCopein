@@ -56,8 +56,6 @@ public class Aluno implements Serializable {
     @Column(name = "email")
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alunoId")
-    private List<AlunoAnexo> alunoAnexoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "alunoId")
     private List<AlunoProjeto> alunoProjetoList;
 
     public Aluno() {
@@ -113,15 +111,6 @@ public class Aluno implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @XmlTransient
-    public List<AlunoAnexo> getAlunoAnexoList() {
-        return alunoAnexoList;
-    }
-
-    public void setAlunoAnexoList(List<AlunoAnexo> alunoAnexoList) {
-        this.alunoAnexoList = alunoAnexoList;
     }
 
     @XmlTransient

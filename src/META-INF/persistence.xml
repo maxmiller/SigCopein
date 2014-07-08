@@ -9,11 +9,17 @@
     <class>br.edu.ifrn.sigcopein.bean.ServidorProjeto</class>
     <class>br.edu.ifrn.sigcopein.bean.ServidorAnexo</class>
     <class>br.edu.ifrn.sigcopein.bean.AlunoAnexo</class>
+    <class>br.edu.ifrn.sigcopein.bean.Edital</class>
+    <class>br.edu.ifrn.sigcopein.bean.Banco</class>
+    <class>br.edu.ifrn.sigcopein.bean.Setor</class>
+    <class>br.edu.ifrn.sigcopein.bean.Memorando</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sigcopein?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="123456"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="eclipselink.logging.logger" value="DefaultLogger"/>
+      <property name="eclipselink.logging.level" value="ALL"/>
     </properties>
   </persistence-unit>
 </persistence>

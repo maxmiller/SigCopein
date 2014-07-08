@@ -5,11 +5,18 @@
  */
 package br.edu.ifrn.sigcopein.view;
 
-import br.edu.ifrn.sigcopein.bean.Aluno;
+import br.edu.ifrn.sigcopein.bean.Edital;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
-import br.edu.ifrn.sigcopein.services.AlunoService;
-import br.edu.ifrn.sigcopein.tabela.TabelaAluno;
+import br.edu.ifrn.sigcopein.services.EditalService;
+import br.edu.ifrn.sigcopein.tabela.TabelaEdital;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -17,15 +24,16 @@ import javax.swing.JOptionPane;
  *
  * @author 1935921
  */
-public class ViewListaAlunos extends javax.swing.JInternalFrame {
+public class ViewListaEdital extends javax.swing.JInternalFrame {
 
-    private List<Aluno> lista = null;
-    private AlunoService service = new AlunoService(new SimpleEntityManager());
-    private JFrame frame;
+    private List<Edital> lista = null;
+    private EditalService service = new EditalService(new SimpleEntityManager());
+ private JFrame frame;
+   
     /**
-     * Creates new form ViewListaAlunoes
+     * Creates new form ViewListaEditales
      */
-    public ViewListaAlunos(JFrame f) {
+    public ViewListaEdital(JFrame f) {
         initComponents();
         carregarTabela();
         this.frame = f;
@@ -33,8 +41,8 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
 
     private void carregarTabela() {
         lista = service.findAll();
-        TabelaAluno tb = new TabelaAluno(lista);
-        tbAluno.setModel(tb);
+        TabelaEdital tb = new TabelaEdital(lista);
+        tbEdital.setModel(tb);
     }
 
     /**
@@ -47,7 +55,7 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbAluno = new javax.swing.JTable();
+        tbEdital = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -55,7 +63,7 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
-        tbAluno.setModel(new javax.swing.table.DefaultTableModel(
+        tbEdital.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -66,7 +74,7 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tbAluno);
+        jScrollPane1.setViewportView(tbEdital);
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +132,7 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRelatorio)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -133,20 +141,18 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(frame, true, null);
+        ViewIncluirEditarEdital view = new ViewIncluirEditarEdital(frame, true, null);
         view.setVisible(true);
         carregarTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        if (tbAluno.getSelectedRow() != -1) {
-            TabelaAluno tb = (TabelaAluno) tbAluno.getModel();
-            Aluno s = tb.get(tbAluno.getSelectedRow());
-            ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(frame, true, s);
+        if (tbEdital.getSelectedRow() != -1) {
+            TabelaEdital tb = (TabelaEdital) tbEdital.getModel();
+            Edital s = tb.get(tbEdital.getSelectedRow());
+            ViewIncluirEditarEdital view = new ViewIncluirEditarEdital(frame, true, s);
             view.setVisible(true);
-            
-           // view.set
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um servidor");
         }
@@ -155,15 +161,15 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-         if (tbAluno.getSelectedRow() != -1) {
-            TabelaAluno tb = (TabelaAluno) tbAluno.getModel();
-            Aluno s = tb.get(tbAluno.getSelectedRow());
+        if (tbEdital.getSelectedRow() != -1) {
+            TabelaEdital tb = (TabelaEdital) tbEdital.getModel();
+            Edital s = tb.get(tbEdital.getSelectedRow());
             int op = JOptionPane.showConfirmDialog(this, "Deseja exlcuir");
-            if(op == JOptionPane.YES_OPTION){
+            if (op == JOptionPane.YES_OPTION) {
                 service.remove(s);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um servidor");
+            JOptionPane.showMessageDialog(null, "Selecione um servidor");
         }
         carregarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -175,6 +181,6 @@ public class ViewListaAlunos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbAluno;
+    private javax.swing.JTable tbEdital;
     // End of variables declaration//GEN-END:variables
 }

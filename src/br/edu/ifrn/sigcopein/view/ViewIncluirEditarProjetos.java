@@ -5,13 +5,15 @@
  */
 package br.edu.ifrn.sigcopein.view;
 
+import br.edu.ifrn.sigcopein.bean.Edital;
 import br.edu.ifrn.sigcopein.bean.Projeto;
+import br.edu.ifrn.sigcopein.services.EditalService;
 import br.edu.ifrn.sigcopein.services.ProjetoService;
+import br.edu.ifrn.sigcopein.util.DateUtil;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -26,6 +28,8 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
      */
     private Projeto projeto;
     private ProjetoService service;
+    private EditalService editalservice;
+    
     private byte[] arquivo;
     private String filename;
 
@@ -37,13 +41,22 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
         } else {
             projeto = s;
             txtNome.setText(s.getNome());
-            txtEdital.setText(s.getEdital());
-            txtInicio.setText(s.getDataInicio().toString());
-            txtFim.setText(s.getDataFim().toString());
+            cbEdital.setSelectedItem(s.getEditalId());
+            dtInicio.setSelectedDate(DateUtil.convertToCalendar(s.getDataInicio()));
+            dtFim.setSelectedDate(DateUtil.convertToCalendar(s.getDataFim()));
             lbArquivo.setText(s.getNomeAnexo());
         }
         service = new ProjetoService();
+        editalservice = new EditalService();
 
+    }
+    
+    private void carregarEdital(){
+       List<Edital> lista = editalservice.findAll();
+       Edital [] vetor = (Edital [])lista.toArray();
+       DefaultComboBoxModel<Edital> cb = new DefaultComboBoxModel<Edital>(vetor);
+       cbEdital.setModel(cb);
+        
     }
 
     /**
@@ -61,16 +74,16 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtEdital = new javax.swing.JFormattedTextField();
         txtNome = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtInicio = new javax.swing.JFormattedTextField();
-        txtFim = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         btArquivo = new javax.swing.JButton();
         lbArquivo = new javax.swing.JLabel();
+        dtInicio = new datechooser.beans.DateChooserCombo();
+        dtFim = new datechooser.beans.DateChooserCombo();
+        cbEdital = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,8 +94,6 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
         jLabel2.setText("NOME:");
 
         jLabel3.setText("INICIO:");
-
-        txtEdital.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#######"))));
 
         jButton1.setText("Salvar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,13 +111,9 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
 
         jLabel4.setText("FIM:");
 
-        txtInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
-        txtFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-
         jLabel5.setText("ANEXO:");
 
-        btArquivo.setText("Selecione o arquivo..");
+        btArquivo.setText("Selecione....");
         btArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btArquivoActionPerformed(evt);
@@ -114,6 +121,8 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
         });
 
         lbArquivo.setText("Nenhum arquivo selecionado");
+
+        cbEdital.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,26 +145,23 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
                                 .addComponent(jButton2)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtEdital, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 54, Short.MAX_VALUE))
+                            .addComponent(cbEdital, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 86, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtFim, txtInicio});
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
 
@@ -165,27 +171,31 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtEdital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbEdital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(btArquivo)
-                    .addComponent(lbArquivo))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(btArquivo))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbArquivo)))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,9 +221,9 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        projeto.setEdital(txtEdital.getText());
-        projeto.setDataFim(new Date(txtFim.getText()));
-        projeto.setDataInicio(new Date(txtInicio.getText()));
+        projeto.setEditalId((Edital)cbEdital.getSelectedItem());
+        projeto.setDataFim(dtFim.getCurrent().getTime());
+        projeto.setDataInicio(dtInicio.getCurrent().getTime());
         projeto.setProjeto(arquivo);
         projeto.setNomeAnexo(filename);
         projeto.setNome(txtNome.getText());
@@ -247,6 +257,9 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btArquivo;
+    private javax.swing.JComboBox cbEdital;
+    private datechooser.beans.DateChooserCombo dtFim;
+    private datechooser.beans.DateChooserCombo dtInicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JFileChooser jFileChooser1;
@@ -258,9 +271,6 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbArquivo;
-    private javax.swing.JFormattedTextField txtEdital;
-    private javax.swing.JFormattedTextField txtFim;
-    private javax.swing.JFormattedTextField txtInicio;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

@@ -36,8 +36,10 @@ public class Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mnServidores = new javax.swing.JMenuItem();
         mnAlunos = new javax.swing.JMenuItem();
+        mnEdital = new javax.swing.JMenuItem();
+        mnBanco = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -65,13 +67,13 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu2.setText("Cadastro");
 
-        jMenuItem2.setText("Servidores");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mnServidores.setText("Servidores");
+        mnServidores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mnServidoresActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(mnServidores);
 
         mnAlunos.setText("Alunos");
         mnAlunos.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +82,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(mnAlunos);
+
+        mnEdital.setText("Edital");
+        mnEdital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnEditalActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnEdital);
+
+        mnBanco.setText("Banco");
+        mnBanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBancoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mnBanco);
 
         jMenuBar1.add(jMenu2);
 
@@ -94,6 +112,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu3.add(jMenuItem3);
 
         jMenuItem4.setText("Gerenciar Alunos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
 
         jMenuItem5.setText("Gerenciar Servidores");
@@ -117,16 +140,16 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void mnServidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnServidoresActionPerformed
         // TODO add your handling code here:
-        ViewListaServidores view = new ViewListaServidores();
+        ViewListaServidores view = new ViewListaServidores(this);
         view.setVisible(true);
         AddInternalFrame(view);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_mnServidoresActionPerformed
 
     private void mnAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAlunosActionPerformed
         // TODO add your handling code here:
-        ViewListaAlunos view = new ViewListaAlunos();
+        ViewListaAlunos view = new ViewListaAlunos(this);
         view.setVisible(true);
         AddInternalFrame(view);
     }//GEN-LAST:event_mnAlunosActionPerformed
@@ -134,10 +157,31 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
 
-        ViewListaProjetos view = new ViewListaProjetos();
+        ViewListaProjetos view = new ViewListaProjetos(this);
         view.setVisible(true);
         AddInternalFrame(view);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        ViewListaAlunosProjetos view = new ViewListaAlunosProjetos(this);
+        view.setVisible(true);
+        AddInternalFrame(view);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mnEditalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditalActionPerformed
+        // TODO add your handling code here:
+        ViewListaEdital view = new ViewListaEdital(this);
+        view.setVisible(true);
+        AddInternalFrame(view);
+    }//GEN-LAST:event_mnEditalActionPerformed
+
+    private void mnBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBancoActionPerformed
+        // TODO add your handling code here:
+        ViewListaBanco view = new ViewListaBanco(this);
+        view.setVisible(true);
+        AddInternalFrame(view);
+    }//GEN-LAST:event_mnBancoActionPerformed
 
     private void AddInternalFrame(JInternalFrame j) {
         jdPrincipal.add(j);
@@ -184,11 +228,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JDesktopPane jdPrincipal;
     private javax.swing.JMenuItem mnAlunos;
+    private javax.swing.JMenuItem mnBanco;
+    private javax.swing.JMenuItem mnEdital;
+    private javax.swing.JMenuItem mnServidores;
     // End of variables declaration//GEN-END:variables
 }

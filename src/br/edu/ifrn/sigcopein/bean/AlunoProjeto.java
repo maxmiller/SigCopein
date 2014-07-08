@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,8 +38,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AlunoProjeto.findByDataInicio", query = "SELECT a FROM AlunoProjeto a WHERE a.dataInicio = :dataInicio"),
     @NamedQuery(name = "AlunoProjeto.findByDataFim", query = "SELECT a FROM AlunoProjeto a WHERE a.dataFim = :dataFim"),
     @NamedQuery(name = "AlunoProjeto.findByCargaHoraria", query = "SELECT a FROM AlunoProjeto a WHERE a.cargaHoraria = :cargaHoraria"),
-    @NamedQuery(name = "AlunoProjeto.findByHabilitado", query = "SELECT a FROM AlunoProjeto a WHERE a.habilitado = :habilitado")})
+    @NamedQuery(name = "AlunoProjeto.findByHabilitado", query = "SELECT a FROM AlunoProjeto a WHERE a.habilitado = :habilitado"),
+    @NamedQuery(name = "AlunoProjeto.findByNomeAnexo", query = "SELECT a FROM AlunoProjeto a WHERE a.nomeAnexo = :nomeAnexo"),
+    @NamedQuery(name = "AlunoProjeto.findByAgencia", query = "SELECT a FROM AlunoProjeto a WHERE a.agencia = :agencia"),
+    @NamedQuery(name = "AlunoProjeto.findByConta", query = "SELECT a FROM AlunoProjeto a WHERE a.conta = :conta")})
 public class AlunoProjeto implements Serializable {
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "anexo")
+    private byte[] anexo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +68,16 @@ public class AlunoProjeto implements Serializable {
     private int cargaHoraria;
     @Column(name = "habilitado")
     private Boolean habilitado;
+    @Basic(optional = false)
+    @Column(name = "nome_anexo")
+    private String nomeAnexo;
+    @Column(name = "agencia")
+    private String agencia;
+    @Column(name = "conta")
+    private String conta;
+    @JoinColumn(name = "banco_id", referencedColumnName = "banco_id")
+    @ManyToOne(optional = false)
+    private Banco bancoId;
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
     @ManyToOne(optional = false)
     private Projeto projetoId;
@@ -74,11 +92,13 @@ public class AlunoProjeto implements Serializable {
         this.alunoProjetoId = alunoProjetoId;
     }
 
-    public AlunoProjeto(Integer alunoProjetoId, boolean bolsista, Date dataInicio, int cargaHoraria) {
+    public AlunoProjeto(Integer alunoProjetoId, boolean bolsista, Date dataInicio, int cargaHoraria, byte[] anexo, String nomeAnexo) {
         this.alunoProjetoId = alunoProjetoId;
         this.bolsista = bolsista;
         this.dataInicio = dataInicio;
         this.cargaHoraria = cargaHoraria;
+        this.anexo = anexo;
+        this.nomeAnexo = nomeAnexo;
     }
 
     public Integer getAlunoProjetoId() {
@@ -129,6 +149,39 @@ public class AlunoProjeto implements Serializable {
         this.habilitado = habilitado;
     }
 
+
+    public String getNomeAnexo() {
+        return nomeAnexo;
+    }
+
+    public void setNomeAnexo(String nomeAnexo) {
+        this.nomeAnexo = nomeAnexo;
+    }
+
+    public String getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
+    }
+
+    public String getConta() {
+        return conta;
+    }
+
+    public void setConta(String conta) {
+        this.conta = conta;
+    }
+
+    public Banco getBancoId() {
+        return bancoId;
+    }
+
+    public void setBancoId(Banco bancoId) {
+        this.bancoId = bancoId;
+    }
+
     public Projeto getProjetoId() {
         return projetoId;
     }
@@ -168,6 +221,14 @@ public class AlunoProjeto implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.AlunoProjeto[ alunoProjetoId=" + alunoProjetoId + " ]";
+    }
+
+    public byte[] getAnexo() {
+        return anexo;
+    }
+
+    public void setAnexo(byte[] anexo) {
+        this.anexo = anexo;
     }
     
 }

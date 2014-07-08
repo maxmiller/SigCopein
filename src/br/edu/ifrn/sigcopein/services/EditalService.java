@@ -5,8 +5,8 @@
  */
 package br.edu.ifrn.sigcopein.services;
 
-import br.edu.ifrn.sigcopein.bean.Projeto;
-import br.edu.ifrn.sigcopein.dao.ProjetoDao;
+import br.edu.ifrn.sigcopein.bean.Edital;
+import br.edu.ifrn.sigcopein.dao.EditalDao;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
 import java.util.List;
 
@@ -14,23 +14,23 @@ import java.util.List;
  *
  * @author 1935921
  */
-public class ProjetoService {
+public class EditalService {
 
-    private ProjetoDao dao;
+    private EditalDao dao;
     private final String PERSISTENCE_UNIT = "SigCOPEINPU";
     private SimpleEntityManager simpleEntityManager;
 
-    public ProjetoService(SimpleEntityManager simpleEntityManager) {
+    public EditalService(SimpleEntityManager simpleEntityManager) {
         this.simpleEntityManager = simpleEntityManager;
-        dao = new ProjetoDao(simpleEntityManager.getEntityManager());
+        dao = new EditalDao(simpleEntityManager.getEntityManager());
     }
 
-    public ProjetoService() {
+    public EditalService() {
         this.simpleEntityManager = new SimpleEntityManager(PERSISTENCE_UNIT);
-        dao = new ProjetoDao(simpleEntityManager.getEntityManager());
+        dao = new EditalDao(simpleEntityManager.getEntityManager());
     }
 
-    public void save(Projeto service) {
+    public void save(Edital service) {
         service.setHabilitado(true);
         try {
             simpleEntityManager.beginTransaction();
@@ -43,7 +43,7 @@ public class ProjetoService {
         }
     }
 
-    public void update(Projeto service) {
+    public void update(Edital service) {
         try {
             simpleEntityManager.beginTransaction();
             //costumer.validate();
@@ -55,7 +55,7 @@ public class ProjetoService {
         }
     }
 
-    public void remove(Projeto service) {
+    public void remove(Edital service) {
         service.setHabilitado(false);
         try {
             simpleEntityManager.beginTransaction();
@@ -68,11 +68,9 @@ public class ProjetoService {
         }
     }
 
-    public List<Projeto> findAll() {
+    public List<Edital> findAll() {
         return dao.findAll();
     }
-
-    public Projeto findById(int parseInt) {
-        return dao.getById(parseInt);
-    }
+    
+  
 }

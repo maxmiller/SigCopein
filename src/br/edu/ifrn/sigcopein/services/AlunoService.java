@@ -72,4 +72,8 @@ public class AlunoService {
     public List<Aluno> findAll() {
         return dao.findAll();
     }
+    
+    public Aluno findByMatricula(String matricula){
+        return dao.findByMatricula(matricula);
+    }
 }

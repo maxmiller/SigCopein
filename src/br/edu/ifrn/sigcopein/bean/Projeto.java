@@ -16,7 +16,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,12 +39,18 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projeto.findAll", query = "SELECT p FROM Projeto p"),
     @NamedQuery(name = "Projeto.findByProjetoId", query = "SELECT p FROM Projeto p WHERE p.projetoId = :projetoId"),
     @NamedQuery(name = "Projeto.findByNome", query = "SELECT p FROM Projeto p WHERE p.nome = :nome"),
-    @NamedQuery(name = "Projeto.findByEdital", query = "SELECT p FROM Projeto p WHERE p.edital = :edital"),
     @NamedQuery(name = "Projeto.findByDataInicio", query = "SELECT p FROM Projeto p WHERE p.dataInicio = :dataInicio"),
     @NamedQuery(name = "Projeto.findByDataFim", query = "SELECT p FROM Projeto p WHERE p.dataFim = :dataFim"),
     @NamedQuery(name = "Projeto.findByHabilitado", query = "SELECT p FROM Projeto p WHERE p.habilitado = :habilitado"),
-    @NamedQuery(name = "Projeto.findByNomeAnexo", query = "SELECT p FROM Projeto p WHERE p.nomeAnexo = :nomeAnexo")})
+    @NamedQuery(name = "Projeto.findByNomeAnexo", query = "SELECT p FROM Projeto p WHERE p.nomeAnexo = :nomeAnexo"),
+    @NamedQuery(name = "Projeto.findBySelecionado", query = "SELECT p FROM Projeto p WHERE p.selecionado = :selecionado")})
 public class Projeto implements Serializable {
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "projeto")
+    private byte[] projeto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
+    private List<Memorando> memorandoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +61,6 @@ public class Projeto implements Serializable {
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
-    @Column(name = "edital")
-    private String edital;
-    @Basic(optional = false)
     @Column(name = "data_inicio")
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
@@ -64,15 +69,16 @@ public class Projeto implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataFim;
     @Basic(optional = false)
-    @Lob
-    @Column(name = "projeto")
-    private byte[] projeto;
-    @Basic(optional = false)
     @Column(name = "habilitado")
     private boolean habilitado;
     @Basic(optional = false)
     @Column(name = "nome_anexo")
     private String nomeAnexo;
+    @Column(name = "selecionado")
+    private Boolean selecionado;
+    @JoinColumn(name = "edital_id", referencedColumnName = "edital_id")
+    @ManyToOne(optional = false)
+    private Edital editalId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
     private List<AlunoProjeto> alunoProjetoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
@@ -85,10 +91,9 @@ public class Projeto implements Serializable {
         this.projetoId = projetoId;
     }
 
-    public Projeto(Integer projetoId, String nome, String edital, Date dataInicio, Date dataFim, byte[] projeto, boolean habilitado, String nomeAnexo) {
+    public Projeto(Integer projetoId, String nome, Date dataInicio, Date dataFim, byte[] projeto, boolean habilitado, String nomeAnexo) {
         this.projetoId = projetoId;
         this.nome = nome;
-        this.edital = edital;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.projeto = projeto;
@@ -112,14 +117,6 @@ public class Projeto implements Serializable {
         this.nome = nome;
     }
 
-    public String getEdital() {
-        return edital;
-    }
-
-    public void setEdital(String edital) {
-        this.edital = edital;
-    }
-
     public Date getDataInicio() {
         return dataInicio;
     }
@@ -136,13 +133,6 @@ public class Projeto implements Serializable {
         this.dataFim = dataFim;
     }
 
-    public byte[] getProjeto() {
-        return projeto;
-    }
-
-    public void setProjeto(byte[] projeto) {
-        this.projeto = projeto;
-    }
 
     public boolean getHabilitado() {
         return habilitado;
@@ -158,6 +148,22 @@ public class Projeto implements Serializable {
 
     public void setNomeAnexo(String nomeAnexo) {
         this.nomeAnexo = nomeAnexo;
+    }
+
+    public Boolean getSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(Boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+
+    public Edital getEditalId() {
+        return editalId;
+    }
+
+    public void setEditalId(Edital editalId) {
+        this.editalId = editalId;
     }
 
     @XmlTransient
@@ -201,6 +207,23 @@ public class Projeto implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.Projeto[ projetoId=" + projetoId + " ]";
+    }
+
+    public byte[] getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(byte[] projeto) {
+        this.projeto = projeto;
+    }
+
+    @XmlTransient
+    public List<Memorando> getMemorandoList() {
+        return memorandoList;
+    }
+
+    public void setMemorandoList(List<Memorando> memorandoList) {
+        this.memorandoList = memorandoList;
     }
     
 }

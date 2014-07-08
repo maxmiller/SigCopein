@@ -24,6 +24,8 @@ public class GenericDao<PK, T> {
     public T getById(PK pk) {
         return (T) entityManager.find(getTypeClass(), pk);
     }
+    
+    
  
     public void save(T entity) {
         entityManager.persist(entity);

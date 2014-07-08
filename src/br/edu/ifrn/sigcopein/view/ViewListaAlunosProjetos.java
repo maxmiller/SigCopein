@@ -12,6 +12,7 @@ import br.edu.ifrn.sigcopein.services.AlunoProjetoService;
 import br.edu.ifrn.sigcopein.tabela.TabelaAluno;
 import br.edu.ifrn.sigcopein.tabela.TabelaAlunoProjeto;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,13 +23,14 @@ public class ViewListaAlunosProjetos extends javax.swing.JInternalFrame {
 
     private List<AlunoProjeto> lista = null;
     private AlunoProjetoService service = new AlunoProjetoService(new SimpleEntityManager());
-
+    private JFrame frame;
     /**
      * Creates new form ViewListaAlunoes
      */
-    public ViewListaAlunosProjetos() {
+    public ViewListaAlunosProjetos(JFrame f) {
         initComponents();
         carregarTabela();
+        this.frame = f;
     }
 
     private void carregarTabela() {
@@ -133,7 +135,7 @@ public class ViewListaAlunosProjetos extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(null, true, null);
+        ViewIncluirEditarAlunoProjeto view = new ViewIncluirEditarAlunoProjeto(frame, true, null);
         view.setVisible(true);
         carregarTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -143,7 +145,7 @@ public class ViewListaAlunosProjetos extends javax.swing.JInternalFrame {
         if (tbAluno.getSelectedRow() != -1) {
             TabelaAluno tb = (TabelaAluno) tbAluno.getModel();
             Aluno s = tb.get(tbAluno.getSelectedRow());
-            ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(null, true, s);
+            ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(frame, true, s);
             view.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um servidor");
@@ -156,12 +158,12 @@ public class ViewListaAlunosProjetos extends javax.swing.JInternalFrame {
          if (tbAluno.getSelectedRow() != -1) {
             TabelaAlunoProjeto tb = (TabelaAlunoProjeto) tbAluno.getModel();
             AlunoProjeto s = tb.get(tbAluno.getSelectedRow());
-            int op = JOptionPane.showConfirmDialog(null, "Deseja exlcuir");
+            int op = JOptionPane.showConfirmDialog(this, "Deseja exlcuir");
             if(op == JOptionPane.YES_OPTION){
                 service.remove(s);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um servidor");
+            JOptionPane.showMessageDialog(this, "Selecione um servidor");
         }
         carregarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed

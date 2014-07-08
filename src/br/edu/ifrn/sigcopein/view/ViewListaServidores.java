@@ -10,6 +10,7 @@ import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
 import br.edu.ifrn.sigcopein.services.ServidorService;
 import br.edu.ifrn.sigcopein.tabela.TabelaServidor;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,13 +21,16 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private List<Servidor> lista = null;
     private ServidorService service = new ServidorService(new SimpleEntityManager());
-
+     private JFrame frame;
+   
     /**
      * Creates new form ViewListaServidores
+     * @param f
      */
-    public ViewListaServidores() {
+    public ViewListaServidores(JFrame f) {
         initComponents();
         carregarTabela();
+        this.frame = f;
     }
 
     private void carregarTabela() {
@@ -131,7 +135,7 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(null, true, null);
+        ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(frame, true, null);
         view.setVisible(true);
         carregarTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -141,7 +145,7 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
         if (tbServidor.getSelectedRow() != -1) {
             TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
             Servidor s = tb.get(tbServidor.getSelectedRow());
-            ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(null, true, s);
+            ViewIncluirEditarServidores view = new ViewIncluirEditarServidores(frame, true, s);
             view.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um servidor");
@@ -154,12 +158,12 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
          if (tbServidor.getSelectedRow() != -1) {
             TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
             Servidor s = tb.get(tbServidor.getSelectedRow());
-            int op = JOptionPane.showConfirmDialog(null, "Deseja exlcuir");
+            int op = JOptionPane.showConfirmDialog(this, "Deseja exlcuir");
             if(op == JOptionPane.YES_OPTION){
                 service.remove(s);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um servidor");
+            JOptionPane.showMessageDialog(this, "Selecione um servidor");
         }
         carregarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed

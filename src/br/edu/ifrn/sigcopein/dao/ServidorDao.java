@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
  *
  * @author 1935921
  */
-public class ServidorDao extends GenericDao<Long, Servidor>{
+public class ServidorDao extends GenericDao<Integer, Servidor>{
 
     public ServidorDao(EntityManager entityManager) {
         super(entityManager);

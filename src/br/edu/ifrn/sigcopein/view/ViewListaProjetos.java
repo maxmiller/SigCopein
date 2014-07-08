@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,13 +28,15 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
 
     private List<Projeto> lista = null;
     private ProjetoService service = new ProjetoService(new SimpleEntityManager());
-
+ private JFrame frame;
+   
     /**
      * Creates new form ViewListaProjetoes
      */
-    public ViewListaProjetos() {
+    public ViewListaProjetos(JFrame f) {
         initComponents();
         carregarTabela();
+        this.frame = f;
     }
 
     private void carregarTabela() {
@@ -149,7 +152,7 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        ViewIncluirEditarProjetos view = new ViewIncluirEditarProjetos(null, true, null);
+        ViewIncluirEditarProjetos view = new ViewIncluirEditarProjetos(frame, true, null);
         view.setVisible(true);
         carregarTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -159,10 +162,10 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
         if (tbProjeto.getSelectedRow() != -1) {
             TabelaProjeto tb = (TabelaProjeto) tbProjeto.getModel();
             Projeto s = tb.get(tbProjeto.getSelectedRow());
-            ViewIncluirEditarProjetos view = new ViewIncluirEditarProjetos(null, true, s);
+            ViewIncluirEditarProjetos view = new ViewIncluirEditarProjetos(frame, true, s);
             view.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um servidor");
+            JOptionPane.showMessageDialog(this, "Selecione um servidor");
         }
         carregarTabela();
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -172,12 +175,12 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
         if (tbProjeto.getSelectedRow() != -1) {
             TabelaProjeto tb = (TabelaProjeto) tbProjeto.getModel();
             Projeto s = tb.get(tbProjeto.getSelectedRow());
-            int op = JOptionPane.showConfirmDialog(null, "Deseja exlcuir");
+            int op = JOptionPane.showConfirmDialog(this, "Deseja exlcuir");
             if (op == JOptionPane.YES_OPTION) {
                 service.remove(s);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um servidor");
+            JOptionPane.showMessageDialog(this, "Selecione um servidor");
         }
         carregarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed

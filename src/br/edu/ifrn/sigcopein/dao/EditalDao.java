@@ -6,7 +6,7 @@
 
 package br.edu.ifrn.sigcopein.dao;
 
-import br.edu.ifrn.sigcopein.bean.Projeto;
+import br.edu.ifrn.sigcopein.bean.Edital;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -14,18 +14,17 @@ import javax.persistence.EntityManager;
  *
  * @author 1935921
  */
-public class ProjetoDao extends GenericDao<Integer, Projeto>{
+public class EditalDao extends GenericDao<Integer, Edital>{
 
-    public ProjetoDao(EntityManager entityManager) {
+    public EditalDao(EntityManager entityManager) {
         super(entityManager);
     }
 
     @Override
-    public List<Projeto> findAll() {
-        return getEntityManager().createNamedQuery("Projeto.findAll", Projeto.class).getResultList();
+    public List<Edital> findAll() {
+        return getEntityManager().createNamedQuery("Edital.findAll", Edital.class).getResultList();
     }
-
-  
-   
+    
+    
     
 }
