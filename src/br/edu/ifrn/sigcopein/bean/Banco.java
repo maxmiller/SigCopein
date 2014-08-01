@@ -129,7 +129,7 @@ public class Banco implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.ifrn.sigcopein.bean.Banco[ bancoId=" + bancoId + " ]";
+        return codigo + " - " + nome;
     }
     
 }

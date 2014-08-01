@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Aluno.findByHabilitado", query = "SELECT a FROM Aluno a WHERE a.habilitado = :habilitado"),
     @NamedQuery(name = "Aluno.findByMatricula", query = "SELECT a FROM Aluno a WHERE a.matricula = :matricula"),
     @NamedQuery(name = "Aluno.findByNome", query = "SELECT a FROM Aluno a WHERE a.nome = :nome"),
-    @NamedQuery(name = "Aluno.findByEmail", query = "SELECT a FROM Aluno a WHERE a.email = :email")})
+    @NamedQuery(name = "Aluno.findByCpf", query = "SELECT a FROM Aluno a WHERE a.cpf = :cpf"),
+    @NamedQuery(name = "Aluno.findByEmail", query = "SELECT a FROM Aluno a WHERE a.email = :email"),
+    @NamedQuery(name = "Aluno.findByLattes", query = "SELECT a FROM Aluno a WHERE a.lattes = :lattes")})
 public class Aluno implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,8 +55,14 @@ public class Aluno implements Serializable {
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
+    @Column(name = "cpf")
+    private String cpf;
+    @Basic(optional = false)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @Column(name = "lattes")
+    private String lattes;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "alunoId")
     private List<AlunoProjeto> alunoProjetoList;
 
@@ -65,12 +73,14 @@ public class Aluno implements Serializable {
         this.alunoId = alunoId;
     }
 
-    public Aluno(Integer alunoId, boolean habilitado, String matricula, String nome, String email) {
+    public Aluno(Integer alunoId, boolean habilitado, String matricula, String nome, String cpf, String email, String lattes) {
         this.alunoId = alunoId;
         this.habilitado = habilitado;
         this.matricula = matricula;
         this.nome = nome;
+        this.cpf = cpf;
         this.email = email;
+        this.lattes = lattes;
     }
 
     public Integer getAlunoId() {
@@ -105,12 +115,28 @@ public class Aluno implements Serializable {
         this.nome = nome;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getLattes() {
+        return lattes;
+    }
+
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
     }
 
     @XmlTransient

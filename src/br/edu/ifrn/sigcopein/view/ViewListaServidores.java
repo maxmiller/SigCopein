@@ -9,7 +9,13 @@ import br.edu.ifrn.sigcopein.bean.Servidor;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
 import br.edu.ifrn.sigcopein.services.ServidorService;
 import br.edu.ifrn.sigcopein.tabela.TabelaServidor;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -21,10 +27,11 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private List<Servidor> lista = null;
     private ServidorService service = new ServidorService(new SimpleEntityManager());
-     private JFrame frame;
-   
+    private JFrame frame;
+
     /**
      * Creates new form ViewListaServidores
+     *
      * @param f
      */
     public ViewListaServidores(JFrame f) {
@@ -54,6 +61,7 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
+        btnLattes = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -94,6 +102,13 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
         btnRelatorio.setText("Relatório");
 
+        btnLattes.setText("Ver Lattes");
+        btnLattes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLattesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,7 +121,8 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLattes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -125,8 +141,10 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRelatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLattes)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -155,11 +173,11 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-         if (tbServidor.getSelectedRow() != -1) {
+        if (tbServidor.getSelectedRow() != -1) {
             TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
             Servidor s = tb.get(tbServidor.getSelectedRow());
             int op = JOptionPane.showConfirmDialog(this, "Deseja exlcuir");
-            if(op == JOptionPane.YES_OPTION){
+            if (op == JOptionPane.YES_OPTION) {
                 service.remove(s);
             }
         } else {
@@ -168,10 +186,27 @@ public class ViewListaServidores extends javax.swing.JInternalFrame {
         carregarTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnLattesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLattesActionPerformed
+        // TODO add your handling code here:
+        if (tbServidor.getSelectedRow() != -1) {
+            try {
+                TabelaServidor tb = (TabelaServidor) tbServidor.getModel();
+                Servidor s = tb.get(tbServidor.getSelectedRow());
+                URI uri = new URI(s.getLattes());
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().browse(uri);
+                }
+            } catch (URISyntaxException | IOException ex) {
+                Logger.getLogger(ViewListaServidores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnLattesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLattes;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JScrollPane jScrollPane1;

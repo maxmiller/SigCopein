@@ -37,16 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Memorando.findByAno", query = "SELECT m FROM Memorando m WHERE m.ano = :ano"),
     @NamedQuery(name = "Memorando.findByData", query = "SELECT m FROM Memorando m WHERE m.data = :data"),
     @NamedQuery(name = "Memorando.findBySequencia", query = "SELECT m FROM Memorando m WHERE m.sequencia = :sequencia"),
-    @NamedQuery(name = "Memorando.findByAssunto", query = "SELECT m FROM Memorando m WHERE m.assunto = :assunto")})
+    @NamedQuery(name = "Memorando.findByAssunto", query = "SELECT m FROM Memorando m WHERE m.assunto = :assunto"),
+    @NamedQuery(name = "Memorando.findByPagamento", query = "SELECT m FROM Memorando m WHERE m.pagamento = :pagamento"),
+    @NamedQuery(name = "Memorando.findByMesPagamento", query = "SELECT m FROM Memorando m WHERE m.mesPagamento = :mesPagamento")})
 public class Memorando implements Serializable {
-    @Basic(optional = false)
-    @Column(name = "pagamento")
-    private boolean pagamento;
-    @Column(name = "mes_pagamento")
-    private Integer mesPagamento;
-    @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
-    @ManyToOne(optional = false)
-    private Projeto projetoId;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +64,14 @@ public class Memorando implements Serializable {
     @Lob
     @Column(name = "texto")
     private String texto;
+    @Basic(optional = false)
+    @Column(name = "pagamento")
+    private boolean pagamento;
+    @Column(name = "mes_pagamento")
+    private Integer mesPagamento;
+    @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
+    @ManyToOne(optional = false)
+    private Projeto projetoId;
 
     public Memorando() {
     }
@@ -78,13 +80,14 @@ public class Memorando implements Serializable {
         this.memorandoId = memorandoId;
     }
 
-    public Memorando(Integer memorandoId, int ano, Date data, int sequencia, String assunto, String texto) {
+    public Memorando(Integer memorandoId, int ano, Date data, int sequencia, String assunto, String texto, boolean pagamento) {
         this.memorandoId = memorandoId;
         this.ano = ano;
         this.data = data;
         this.sequencia = sequencia;
         this.assunto = assunto;
         this.texto = texto;
+        this.pagamento = pagamento;
     }
 
     public Integer getMemorandoId() {
@@ -135,6 +138,30 @@ public class Memorando implements Serializable {
         this.texto = texto;
     }
 
+    public boolean getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(boolean pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public Integer getMesPagamento() {
+        return mesPagamento;
+    }
+
+    public void setMesPagamento(Integer mesPagamento) {
+        this.mesPagamento = mesPagamento;
+    }
+
+    public Projeto getProjetoId() {
+        return projetoId;
+    }
+
+    public void setProjetoId(Projeto projetoId) {
+        this.projetoId = projetoId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -158,30 +185,6 @@ public class Memorando implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.Memorando[ memorandoId=" + memorandoId + " ]";
-    }
-
-    public boolean getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(boolean pagamento) {
-        this.pagamento = pagamento;
-    }
-
-    public Integer getMesPagamento() {
-        return mesPagamento;
-    }
-
-    public void setMesPagamento(Integer mesPagamento) {
-        this.mesPagamento = mesPagamento;
-    }
-
-    public Projeto getProjetoId() {
-        return projetoId;
-    }
-
-    public void setProjetoId(Projeto projetoId) {
-        this.projetoId = projetoId;
     }
     
 }

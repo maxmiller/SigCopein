@@ -43,10 +43,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AlunoProjeto.findByAgencia", query = "SELECT a FROM AlunoProjeto a WHERE a.agencia = :agencia"),
     @NamedQuery(name = "AlunoProjeto.findByConta", query = "SELECT a FROM AlunoProjeto a WHERE a.conta = :conta")})
 public class AlunoProjeto implements Serializable {
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "anexo")
-    private byte[] anexo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,18 +65,22 @@ public class AlunoProjeto implements Serializable {
     @Column(name = "habilitado")
     private Boolean habilitado;
     @Basic(optional = false)
+    @Lob
+    @Column(name = "anexo")
+    private byte[] anexo;
+    @Basic(optional = false)
     @Column(name = "nome_anexo")
     private String nomeAnexo;
     @Column(name = "agencia")
     private String agencia;
     @Column(name = "conta")
     private String conta;
-    @JoinColumn(name = "banco_id", referencedColumnName = "banco_id")
-    @ManyToOne(optional = false)
-    private Banco bancoId;
     @JoinColumn(name = "projeto_id", referencedColumnName = "projeto_id")
     @ManyToOne(optional = false)
     private Projeto projetoId;
+    @JoinColumn(name = "banco_id", referencedColumnName = "banco_id")
+    @ManyToOne(optional = false)
+    private Banco bancoId;
     @JoinColumn(name = "aluno_id", referencedColumnName = "aluno_id")
     @ManyToOne(optional = false)
     private Aluno alunoId;
@@ -149,6 +149,13 @@ public class AlunoProjeto implements Serializable {
         this.habilitado = habilitado;
     }
 
+    public byte[] getAnexo() {
+        return anexo;
+    }
+
+    public void setAnexo(byte[] anexo) {
+        this.anexo = anexo;
+    }
 
     public String getNomeAnexo() {
         return nomeAnexo;
@@ -174,20 +181,20 @@ public class AlunoProjeto implements Serializable {
         this.conta = conta;
     }
 
-    public Banco getBancoId() {
-        return bancoId;
-    }
-
-    public void setBancoId(Banco bancoId) {
-        this.bancoId = bancoId;
-    }
-
     public Projeto getProjetoId() {
         return projetoId;
     }
 
     public void setProjetoId(Projeto projetoId) {
         this.projetoId = projetoId;
+    }
+
+    public Banco getBancoId() {
+        return bancoId;
+    }
+
+    public void setBancoId(Banco bancoId) {
+        this.bancoId = bancoId;
     }
 
     public Aluno getAlunoId() {
@@ -221,14 +228,6 @@ public class AlunoProjeto implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.AlunoProjeto[ alunoProjetoId=" + alunoProjetoId + " ]";
-    }
-
-    public byte[] getAnexo() {
-        return anexo;
-    }
-
-    public void setAnexo(byte[] anexo) {
-        this.anexo = anexo;
     }
     
 }

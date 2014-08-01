@@ -143,9 +143,9 @@ public class ViewListaAlunosProjetos extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         if (tbAluno.getSelectedRow() != -1) {
-            TabelaAluno tb = (TabelaAluno) tbAluno.getModel();
-            Aluno s = tb.get(tbAluno.getSelectedRow());
-            ViewIncluirEditarAlunos view = new ViewIncluirEditarAlunos(frame, true, s);
+            TabelaAlunoProjeto tb = (TabelaAlunoProjeto) tbAluno.getModel();
+            AlunoProjeto s = tb.get(tbAluno.getSelectedRow());
+            ViewIncluirEditarAlunoProjeto view = new ViewIncluirEditarAlunoProjeto(frame, true, s);
             view.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um servidor");

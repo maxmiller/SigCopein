@@ -118,7 +118,7 @@ public class Edital implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.ifrn.sigcopein.bean.Edital[ editalId=" + editalId + " ]";
+        return descricao;
     }
     
 }

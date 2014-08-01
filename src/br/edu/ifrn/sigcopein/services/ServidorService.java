@@ -71,4 +71,8 @@ public class ServidorService {
     public List<Servidor> findAll() {
         return dao.findAll();
     }
+    
+    public Servidor findBySiape(String siape){
+        return dao.finBySiape(siape);
+    }
 }

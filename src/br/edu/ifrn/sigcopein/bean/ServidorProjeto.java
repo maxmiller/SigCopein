@@ -11,8 +11,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -33,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ServidorProjeto.findAll", query = "SELECT s FROM ServidorProjeto s"),
-    @NamedQuery(name = "ServidorProjeto.findByAlunoProjetoId", query = "SELECT s FROM ServidorProjeto s WHERE s.alunoProjetoId = :alunoProjetoId"),
+    @NamedQuery(name = "ServidorProjeto.findByServidorProjetoId", query = "SELECT s FROM ServidorProjeto s WHERE s.servidorProjetoId = :servidorProjetoId"),
     @NamedQuery(name = "ServidorProjeto.findByBolsista", query = "SELECT s FROM ServidorProjeto s WHERE s.bolsista = :bolsista"),
     @NamedQuery(name = "ServidorProjeto.findByDataInicio", query = "SELECT s FROM ServidorProjeto s WHERE s.dataInicio = :dataInicio"),
     @NamedQuery(name = "ServidorProjeto.findByDataFim", query = "SELECT s FROM ServidorProjeto s WHERE s.dataFim = :dataFim"),
@@ -43,16 +41,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ServidorProjeto.findByAgencia", query = "SELECT s FROM ServidorProjeto s WHERE s.agencia = :agencia"),
     @NamedQuery(name = "ServidorProjeto.findByConta", query = "SELECT s FROM ServidorProjeto s WHERE s.conta = :conta")})
 public class ServidorProjeto implements Serializable {
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "anexo")
-    private byte[] anexo;
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "aluno_projeto_id")
-    private Integer alunoProjetoId;
+    @Column(name = "servidor_projeto_id")
+    private Integer servidorProjetoId;
     @Basic(optional = false)
     @Column(name = "bolsista")
     private boolean bolsista;
@@ -68,6 +61,10 @@ public class ServidorProjeto implements Serializable {
     private int cargaHoraria;
     @Column(name = "habilitado")
     private Boolean habilitado;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "anexo")
+    private byte[] anexo;
     @Basic(optional = false)
     @Column(name = "nome_anexo")
     private String nomeAnexo;
@@ -88,12 +85,12 @@ public class ServidorProjeto implements Serializable {
     public ServidorProjeto() {
     }
 
-    public ServidorProjeto(Integer alunoProjetoId) {
-        this.alunoProjetoId = alunoProjetoId;
+    public ServidorProjeto(Integer servidorProjetoId) {
+        this.servidorProjetoId = servidorProjetoId;
     }
 
-    public ServidorProjeto(Integer alunoProjetoId, boolean bolsista, Date dataInicio, int cargaHoraria, byte[] anexo, String nomeAnexo) {
-        this.alunoProjetoId = alunoProjetoId;
+    public ServidorProjeto(Integer servidorProjetoId, boolean bolsista, Date dataInicio, int cargaHoraria, byte[] anexo, String nomeAnexo) {
+        this.servidorProjetoId = servidorProjetoId;
         this.bolsista = bolsista;
         this.dataInicio = dataInicio;
         this.cargaHoraria = cargaHoraria;
@@ -101,12 +98,12 @@ public class ServidorProjeto implements Serializable {
         this.nomeAnexo = nomeAnexo;
     }
 
-    public Integer getAlunoProjetoId() {
-        return alunoProjetoId;
+    public Integer getServidorProjetoId() {
+        return servidorProjetoId;
     }
 
-    public void setAlunoProjetoId(Integer alunoProjetoId) {
-        this.alunoProjetoId = alunoProjetoId;
+    public void setServidorProjetoId(Integer servidorProjetoId) {
+        this.servidorProjetoId = servidorProjetoId;
     }
 
     public boolean getBolsista() {
@@ -149,6 +146,13 @@ public class ServidorProjeto implements Serializable {
         this.habilitado = habilitado;
     }
 
+    public byte[] getAnexo() {
+        return anexo;
+    }
+
+    public void setAnexo(byte[] anexo) {
+        this.anexo = anexo;
+    }
 
     public String getNomeAnexo() {
         return nomeAnexo;
@@ -201,7 +205,7 @@ public class ServidorProjeto implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (alunoProjetoId != null ? alunoProjetoId.hashCode() : 0);
+        hash += (servidorProjetoId != null ? servidorProjetoId.hashCode() : 0);
         return hash;
     }
 
@@ -212,7 +216,7 @@ public class ServidorProjeto implements Serializable {
             return false;
         }
         ServidorProjeto other = (ServidorProjeto) object;
-        if ((this.alunoProjetoId == null && other.alunoProjetoId != null) || (this.alunoProjetoId != null && !this.alunoProjetoId.equals(other.alunoProjetoId))) {
+        if ((this.servidorProjetoId == null && other.servidorProjetoId != null) || (this.servidorProjetoId != null && !this.servidorProjetoId.equals(other.servidorProjetoId))) {
             return false;
         }
         return true;
@@ -220,15 +224,7 @@ public class ServidorProjeto implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.ifrn.sigcopein.bean.ServidorProjeto[ alunoProjetoId=" + alunoProjetoId + " ]";
-    }
-
-    public byte[] getAnexo() {
-        return anexo;
-    }
-
-    public void setAnexo(byte[] anexo) {
-        this.anexo = anexo;
+        return "br.edu.ifrn.sigcopein.bean.ServidorProjeto[ servidorProjetoId=" + servidorProjetoId + " ]";
     }
     
 }

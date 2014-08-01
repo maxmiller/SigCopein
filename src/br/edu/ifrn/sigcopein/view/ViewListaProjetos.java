@@ -14,11 +14,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import static org.codehaus.groovy.runtime.DefaultGroovyStaticMethods.start;
 
 /**
  *
@@ -28,8 +34,8 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
 
     private List<Projeto> lista = null;
     private ProjetoService service = new ProjetoService(new SimpleEntityManager());
- private JFrame frame;
-   
+    private JFrame frame;
+
     /**
      * Creates new form ViewListaProjetoes
      */
@@ -100,6 +106,11 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
         });
 
         btnRelatorio.setText("Relatório");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
 
         btnProjeto.setText("Ver Projeto");
         btnProjeto.addActionListener(new java.awt.event.ActionListener() {
@@ -191,11 +202,15 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
             BufferedOutputStream bos = null;
             try {
                 Projeto pro = ((TabelaProjeto) tbProjeto.getModel()).get(tbProjeto.getSelectedRow());
-                File f = new File(pro.getNomeAnexo());
+                File f = new File(pro.getNomeAnexo().replaceAll(" ", "_"));
                 bos = new BufferedOutputStream(new FileOutputStream(f));
                 bos.write(pro.getProjeto()); //Gravamos os bytes lá  
                 bos.close(); //Fechamos o stream.
-                Runtime.getRuntime().exec("cmd /c start "+f.getAbsolutePath());
+                if (System.getProperty("os.name").startsWith("Win")) {
+                    Runtime.getRuntime().exec("cmd /c start " + f.getAbsolutePath());
+                }else{
+                    Runtime.getRuntime().exec("open " + f.getAbsolutePath());
+                }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ViewListaProjetos.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -211,6 +226,12 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um projeto");
         }
     }//GEN-LAST:event_btnProjetoActionPerformed
+
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        ViewRelatorioProjeto view = new ViewRelatorioProjeto(frame, true);
+        view.setVisible(true);
+
+    }//GEN-LAST:event_btnRelatorioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

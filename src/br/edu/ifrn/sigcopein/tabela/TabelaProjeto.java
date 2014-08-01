@@ -6,6 +6,7 @@
 package br.edu.ifrn.sigcopein.tabela;
 
 import br.edu.ifrn.sigcopein.bean.Projeto;
+import br.edu.ifrn.sigcopein.util.DateUtil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -17,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
 public class TabelaProjeto extends AbstractTableModel {
 
     private List<Projeto> dados;
-    private String[] colunas = {"CÓDIGO","NOME", "EDITAL", "DATA DE INÍCIO", "DATA DE FIM"};
+    private String[] colunas = {"CÓDIGO", "NOME", "EDITAL", "DATA DE INÍCIO", "DATA DE FIM","HABILITADO"};
 
     public TabelaProjeto(List<Projeto> lista) {
         if (lista == null) {
@@ -59,11 +60,14 @@ public class TabelaProjeto extends AbstractTableModel {
             case 1:
                 return dados.get(linha).getNome();
             case 2:
-                return dados.get(linha).getEditalId() !=null ? dados.get(linha).getEditalId().getDescricao():"N/A";
+                return dados.get(linha).getEditalId() != null ? dados.get(linha).getEditalId().getDescricao() : "N/A";
             case 3:
-                return dados.get(linha).getDataInicio();
+
+                return DateUtil.dateConverter(dados.get(linha).getDataInicio());
             case 4:
-                return dados.get(linha).getDataFim();
+                return DateUtil.dateConverter(dados.get(linha).getDataFim());
+            case 5:
+                return dados.get(linha).getHabilitado() ? "Sim" : "Não";
         }
         return null;
     }

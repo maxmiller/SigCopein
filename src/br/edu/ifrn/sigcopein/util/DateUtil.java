@@ -20,15 +20,17 @@ public class DateUtil {
     
     public static Calendar convertToCalendar(Date date) {
         Calendar cal = null;
-        try {
-            DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-            date = (Date) formatter.parse(date.toString());
+            //DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+            //date = (Date) formatter.parse(date.toString());
             cal = Calendar.getInstance();
             cal.setTime(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+       
         return cal;
+    }
+    
+    public static String dateConverter(Date date){
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+        return dateFormatter.format(date);
     }
 
 }

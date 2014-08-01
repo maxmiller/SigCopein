@@ -25,7 +25,9 @@ public class ServidorDao extends GenericDao<Integer, Servidor>{
         return getEntityManager().createNamedQuery("Servidor.findAll", Servidor.class).getResultList();
     }
 
-  
+    public Servidor finBySiape(String siape){
+        return getEntityManager().createNamedQuery("Servidor.findBySiape",Servidor.class).setParameter("siape", siape).getSingleResult();
+    }
    
     
 }

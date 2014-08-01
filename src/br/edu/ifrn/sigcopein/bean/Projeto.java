@@ -45,12 +45,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projeto.findByNomeAnexo", query = "SELECT p FROM Projeto p WHERE p.nomeAnexo = :nomeAnexo"),
     @NamedQuery(name = "Projeto.findBySelecionado", query = "SELECT p FROM Projeto p WHERE p.selecionado = :selecionado")})
 public class Projeto implements Serializable {
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "projeto")
-    private byte[] projeto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
-    private List<Memorando> memorandoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,6 +63,10 @@ public class Projeto implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataFim;
     @Basic(optional = false)
+    @Lob
+    @Column(name = "projeto")
+    private byte[] projeto;
+    @Basic(optional = false)
     @Column(name = "habilitado")
     private boolean habilitado;
     @Basic(optional = false)
@@ -81,6 +79,8 @@ public class Projeto implements Serializable {
     private Edital editalId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
     private List<AlunoProjeto> alunoProjetoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
+    private List<Memorando> memorandoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoId")
     private List<ServidorProjeto> servidorProjetoList;
 
@@ -133,6 +133,13 @@ public class Projeto implements Serializable {
         this.dataFim = dataFim;
     }
 
+    public byte[] getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(byte[] projeto) {
+        this.projeto = projeto;
+    }
 
     public boolean getHabilitado() {
         return habilitado;
@@ -176,6 +183,15 @@ public class Projeto implements Serializable {
     }
 
     @XmlTransient
+    public List<Memorando> getMemorandoList() {
+        return memorandoList;
+    }
+
+    public void setMemorandoList(List<Memorando> memorandoList) {
+        this.memorandoList = memorandoList;
+    }
+
+    @XmlTransient
     public List<ServidorProjeto> getServidorProjetoList() {
         return servidorProjetoList;
     }
@@ -207,23 +223,6 @@ public class Projeto implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.Projeto[ projetoId=" + projetoId + " ]";
-    }
-
-    public byte[] getProjeto() {
-        return projeto;
-    }
-
-    public void setProjeto(byte[] projeto) {
-        this.projeto = projeto;
-    }
-
-    @XmlTransient
-    public List<Memorando> getMemorandoList() {
-        return memorandoList;
-    }
-
-    public void setMemorandoList(List<Memorando> memorandoList) {
-        this.memorandoList = memorandoList;
     }
     
 }

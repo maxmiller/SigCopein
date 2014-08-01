@@ -12,6 +12,7 @@ import br.edu.ifrn.sigcopein.services.ProjetoService;
 import br.edu.ifrn.sigcopein.util.DateUtil;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -38,22 +39,31 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
         initComponents();
         if (s == null) {
             projeto = new Projeto();
+            dtFim.setDate(null);
         } else {
             projeto = s;
             txtNome.setText(s.getNome());
             cbEdital.setSelectedItem(s.getEditalId());
-            dtInicio.setSelectedDate(DateUtil.convertToCalendar(s.getDataInicio()));
-            dtFim.setSelectedDate(DateUtil.convertToCalendar(s.getDataFim()));
+            dtInicio.setDate((s.getDataInicio()));
+            dtFim.setDate((s.getDataFim()));
             lbArquivo.setText(s.getNomeAnexo());
+            filename = s.getNomeAnexo();
+            arquivo = s.getProjeto();
+            if(s.getSelecionado()){
+                cbSelecionado.setSelectedIndex(0);
+            }else{
+                cbSelecionado.setSelectedIndex(1);
+            }
         }
         service = new ProjetoService();
         editalservice = new EditalService();
+        carregarEdital();
 
     }
     
     private void carregarEdital(){
        List<Edital> lista = editalservice.findAll();
-       Edital [] vetor = (Edital [])lista.toArray();
+       Edital [] vetor = Arrays.copyOf(lista.toArray(), lista.toArray().length,Edital[].class);
        DefaultComboBoxModel<Edital> cb = new DefaultComboBoxModel<Edital>(vetor);
        cbEdital.setModel(cb);
         
@@ -81,15 +91,17 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         btArquivo = new javax.swing.JButton();
         lbArquivo = new javax.swing.JLabel();
-        dtInicio = new datechooser.beans.DateChooserCombo();
-        dtFim = new datechooser.beans.DateChooserCombo();
         cbEdital = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        cbSelecionado = new javax.swing.JComboBox();
+        dtInicio = new com.toedter.calendar.JDateChooser();
+        dtFim = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Servidor"));
 
-        jLabel1.setText("EDITAL");
+        jLabel1.setText("EDITAL:");
 
         jLabel2.setText("NOME:");
 
@@ -124,6 +136,10 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
 
         cbEdital.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel6.setText("SELECIONADO:");
+
+        cbSelecionado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -131,35 +147,38 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbSelecionado, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNome)
+                            .addComponent(cbEdital, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(193, 193, 193)
+                                .addComponent(lbArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jButton2))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 54, Short.MAX_VALUE))
-                            .addComponent(cbEdital, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
@@ -169,33 +188,33 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
                     .addComponent(cbEdital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel2)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(btArquivo))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbArquivo)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel6)
+                    .addComponent(cbSelecionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(dtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel5)
+                    .addComponent(btArquivo)
+                    .addComponent(lbArquivo))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,17 +241,27 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         projeto.setEditalId((Edital)cbEdital.getSelectedItem());
-        projeto.setDataFim(dtFim.getCurrent().getTime());
-        projeto.setDataInicio(dtInicio.getCurrent().getTime());
+        if(dtFim.getDate()!=null){
+            projeto.setDataFim(dtFim.getDate());
+        }else{
+            projeto.setDataFim(null);
+        }
+        projeto.setDataInicio(dtInicio.getDate());
         projeto.setProjeto(arquivo);
         projeto.setNomeAnexo(filename);
         projeto.setNome(txtNome.getText());
+        projeto.setEditalId((Edital)cbEdital.getSelectedItem());
+        if(cbSelecionado.getSelectedIndex()==0){
+            projeto.setSelecionado(true);
+        }else{
+            projeto.setSelecionado(false);
+        }
         if (projeto.getProjetoId() != null) {
             service.update(projeto);
         } else {
             service.save(projeto);
         }
-        JOptionPane.showMessageDialog(null, "Dados salvos com sucesso");
+        JOptionPane.showMessageDialog(this, "Dados salvos com sucesso");
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -258,8 +287,9 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btArquivo;
     private javax.swing.JComboBox cbEdital;
-    private datechooser.beans.DateChooserCombo dtFim;
-    private datechooser.beans.DateChooserCombo dtInicio;
+    private javax.swing.JComboBox cbSelecionado;
+    private com.toedter.calendar.JDateChooser dtFim;
+    private com.toedter.calendar.JDateChooser dtInicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JFileChooser jFileChooser1;
@@ -269,6 +299,7 @@ public class ViewIncluirEditarProjetos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbArquivo;
     private javax.swing.JTextField txtNome;

@@ -8,6 +8,7 @@ package br.edu.ifrn.sigcopein.services;
 import br.edu.ifrn.sigcopein.bean.Projeto;
 import br.edu.ifrn.sigcopein.dao.ProjetoDao;
 import br.edu.ifrn.sigcopein.dao.SimpleEntityManager;
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -74,5 +75,9 @@ public class ProjetoService {
 
     public Projeto findById(int parseInt) {
         return dao.getById(parseInt);
+    }
+    
+    public Connection getConnection(){
+        return dao.getConnectionProjeto();
     }
 }

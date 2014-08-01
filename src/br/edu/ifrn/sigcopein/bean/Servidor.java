@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Servidor.findByNome", query = "SELECT s FROM Servidor s WHERE s.nome = :nome"),
     @NamedQuery(name = "Servidor.findByEmail", query = "SELECT s FROM Servidor s WHERE s.email = :email"),
     @NamedQuery(name = "Servidor.findByHabilitado", query = "SELECT s FROM Servidor s WHERE s.habilitado = :habilitado"),
-    @NamedQuery(name = "Servidor.findByServidorId", query = "SELECT s FROM Servidor s WHERE s.servidorId = :servidorId")})
+    @NamedQuery(name = "Servidor.findByServidorId", query = "SELECT s FROM Servidor s WHERE s.servidorId = :servidorId"),
+    @NamedQuery(name = "Servidor.findByCpf", query = "SELECT s FROM Servidor s WHERE s.cpf = :cpf"),
+    @NamedQuery(name = "Servidor.findByLattes", query = "SELECT s FROM Servidor s WHERE s.lattes = :lattes")})
 public class Servidor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -44,6 +46,7 @@ public class Servidor implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
+    @Basic(optional = false)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
@@ -54,6 +57,12 @@ public class Servidor implements Serializable {
     @Basic(optional = false)
     @Column(name = "servidor_id")
     private Integer servidorId;
+    @Basic(optional = false)
+    @Column(name = "cpf")
+    private String cpf;
+    @Basic(optional = false)
+    @Column(name = "lattes")
+    private String lattes;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servidorId")
     private List<Setor> setorList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servidorId")
@@ -66,11 +75,14 @@ public class Servidor implements Serializable {
         this.servidorId = servidorId;
     }
 
-    public Servidor(Integer servidorId, String siape, String nome, boolean habilitado) {
+    public Servidor(Integer servidorId, String siape, String nome, String email, boolean habilitado, String cpf, String lattes) {
         this.servidorId = servidorId;
         this.siape = siape;
         this.nome = nome;
+        this.email = email;
         this.habilitado = habilitado;
+        this.cpf = cpf;
+        this.lattes = lattes;
     }
 
     public String getSiape() {
@@ -111,6 +123,22 @@ public class Servidor implements Serializable {
 
     public void setServidorId(Integer servidorId) {
         this.servidorId = servidorId;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getLattes() {
+        return lattes;
+    }
+
+    public void setLattes(String lattes) {
+        this.lattes = lattes;
     }
 
     @XmlTransient

@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class TabelaEdital extends AbstractTableModel {
 
     private List<Edital> dados;
-    private String[] colunas = {"CODIGO", "DESCRIÇÃO"};
+    private String[] colunas = {"CODIGO", "DESCRIÇÃO","HABILITADO"};
 
     public TabelaEdital(List<Edital> lista) {
         if (lista == null) {
@@ -58,7 +58,8 @@ public class TabelaEdital extends AbstractTableModel {
                 return dados.get(linha).getEditalId();
             case 1:
                 return dados.get(linha).getDescricao();
-          
+          case 3:
+                return dados.get(linha).getHabilitado()?"Sim":"Não";
         }
         return null;
     }

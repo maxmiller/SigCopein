@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class TabelaServidor extends AbstractTableModel {
 
     private List<Servidor> dados;
-    private String[] colunas = {"SIAPE", "NOME", "EMAIL"};
+    private String[] colunas = {"SIAPE", "NOME", "EMAIL","HABILITADO"};
 
     public TabelaServidor(List<Servidor> lista) {
         if (lista == null) {
@@ -60,7 +60,8 @@ public class TabelaServidor extends AbstractTableModel {
                 return dados.get(linha).getNome();
             case 2:
                 return dados.get(linha).getEmail();
-
+            case 3:
+                return dados.get(linha).getHabilitado() ? "Sim" : "Não";
         }
         return null;
     }
