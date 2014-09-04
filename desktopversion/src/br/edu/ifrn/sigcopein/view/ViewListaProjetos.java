@@ -228,7 +228,7 @@ public class ViewListaProjetos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnProjetoActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        ViewRelatorioProjeto view = new ViewRelatorioProjeto(frame, true);
+        ViewRelatorioProjeto view = new ViewRelatorioProjeto(frame, false);
         view.setVisible(true);
 
     }//GEN-LAST:event_btnRelatorioActionPerformed

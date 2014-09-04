@@ -73,6 +73,10 @@ public class Memorando implements Serializable {
     @ManyToOne(optional = false)
     private Projeto projetoId;
 
+    @Basic(optional = false)
+    @Column(name = "setor")
+    private String setor;
+    
     public Memorando() {
     }
 
@@ -185,6 +189,20 @@ public class Memorando implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.Memorando[ memorandoId=" + memorandoId + " ]";
+    }
+
+    /**
+     * @return the setor
+     */
+    public String getSetor() {
+        return setor;
+    }
+
+    /**
+     * @param setor the setor to set
+     */
+    public void setSetor(String setor) {
+        this.setor = setor;
     }
     
 }

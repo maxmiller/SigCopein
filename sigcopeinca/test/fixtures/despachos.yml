@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data_inicio: 2014-09-03
+  data_fim: 2014-09-03
+  evento: MyString
+  local: MyString
+  passagem_aerea: MyString
+  processo: MyString
+  hora_inicio: MyString
+  hora_fim: MyString
+  servidor_id: 
+
+two:
+  data_inicio: 2014-09-03
+  data_fim: 2014-09-03
+  evento: MyString
+  local: MyString
+  passagem_aerea: MyString
+  processo: MyString
+  hora_inicio: MyString
+  hora_fim: MyString
+  servidor_id: 

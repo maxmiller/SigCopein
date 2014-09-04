@@ -1,0 +1,41 @@
+<h1>Listing despachos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data inicio</th>
+      <th>Data fim</th>
+      <th>Evento</th>
+      <th>Local</th>
+      <th>Passagem aerea</th>
+      <th>Processo</th>
+      <th>Hora inicio</th>
+      <th>Hora fim</th>
+      <th>Servidor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @despachos.each do |despacho| %>
+      <tr>
+        <td><%= despacho.data_inicio %></td>
+        <td><%= despacho.data_fim %></td>
+        <td><%= despacho.evento %></td>
+        <td><%= despacho.local %></td>
+        <td><%= despacho.passagem_aerea %></td>
+        <td><%= despacho.processo %></td>
+        <td><%= despacho.hora_inicio %></td>
+        <td><%= despacho.hora_fim %></td>
+        <td><%= despacho.servidor %></td>
+        <td><%= link_to 'Show', despacho %></td>
+        <td><%= link_to 'Edit', edit_despacho_path(despacho) %></td>
+        <td><%= link_to 'Destroy', despacho, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Despacho', new_despacho_path %>

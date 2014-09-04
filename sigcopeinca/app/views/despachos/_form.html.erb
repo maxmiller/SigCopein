@@ -1,0 +1,53 @@
+<%= form_for(@despacho) do |f| %>
+  <% if @despacho.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@despacho.errors.count, "error") %> prohibited this despacho from being saved:</h2>
+
+      <ul>
+      <% @despacho.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :data_inicio %><br>
+    <%= f.date_select :data_inicio %>
+  </div>
+  <div class="field">
+    <%= f.label :data_fim %><br>
+    <%= f.date_select :data_fim %>
+  </div>
+  <div class="field">
+    <%= f.label :evento %><br>
+    <%= f.text_field :evento %>
+  </div>
+  <div class="field">
+    <%= f.label :local %><br>
+    <%= f.text_field :local %>
+  </div>
+  <div class="field">
+    <%= f.label :passagem_aerea %><br>
+    <%= f.text_field :passagem_aerea %>
+  </div>
+  <div class="field">
+    <%= f.label :processo %><br>
+    <%= f.text_field :processo %>
+  </div>
+  <div class="field">
+    <%= f.label :hora_inicio %><br>
+    <%= f.text_field :hora_inicio %>
+  </div>
+  <div class="field">
+    <%= f.label :hora_fim %><br>
+    <%= f.text_field :hora_fim %>
+  </div>
+  <div class="field">
+    <%= f.label :servidor_id %><br>
+    <%= f.text_field :servidor_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Data inicio:</strong>
+  <%= @despacho.data_inicio %>
+</p>
+
+<p>
+  <strong>Data fim:</strong>
+  <%= @despacho.data_fim %>
+</p>
+
+<p>
+  <strong>Evento:</strong>
+  <%= @despacho.evento %>
+</p>
+
+<p>
+  <strong>Local:</strong>
+  <%= @despacho.local %>
+</p>
+
+<p>
+  <strong>Passagem aerea:</strong>
+  <%= @despacho.passagem_aerea %>
+</p>
+
+<p>
+  <strong>Processo:</strong>
+  <%= @despacho.processo %>
+</p>
+
+<p>
+  <strong>Hora inicio:</strong>
+  <%= @despacho.hora_inicio %>
+</p>
+
+<p>
+  <strong>Hora fim:</strong>
+  <%= @despacho.hora_fim %>
+</p>
+
+<p>
+  <strong>Servidor:</strong>
+  <%= @despacho.servidor %>
+</p>
+
+<%= link_to 'Edit', edit_despacho_path(@despacho) %> |
+<%= link_to 'Back', despachos_path %>

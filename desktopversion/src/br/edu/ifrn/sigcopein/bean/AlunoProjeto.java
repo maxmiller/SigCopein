@@ -43,6 +43,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "AlunoProjeto.findByAgencia", query = "SELECT a FROM AlunoProjeto a WHERE a.agencia = :agencia"),
     @NamedQuery(name = "AlunoProjeto.findByConta", query = "SELECT a FROM AlunoProjeto a WHERE a.conta = :conta")})
 public class AlunoProjeto implements Serializable {
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "anexo")
+    private byte[] anexo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,10 +68,6 @@ public class AlunoProjeto implements Serializable {
     private int cargaHoraria;
     @Column(name = "habilitado")
     private Boolean habilitado;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "anexo")
-    private byte[] anexo;
     @Basic(optional = false)
     @Column(name = "nome_anexo")
     private String nomeAnexo;
@@ -149,13 +149,6 @@ public class AlunoProjeto implements Serializable {
         this.habilitado = habilitado;
     }
 
-    public byte[] getAnexo() {
-        return anexo;
-    }
-
-    public void setAnexo(byte[] anexo) {
-        this.anexo = anexo;
-    }
 
     public String getNomeAnexo() {
         return nomeAnexo;
@@ -228,6 +221,14 @@ public class AlunoProjeto implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.AlunoProjeto[ alunoProjetoId=" + alunoProjetoId + " ]";
+    }
+
+    public byte[] getAnexo() {
+        return anexo;
+    }
+
+    public void setAnexo(byte[] anexo) {
+        this.anexo = anexo;
     }
     
 }

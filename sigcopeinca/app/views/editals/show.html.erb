@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @edital.descricao %>
+</p>
+
+<p>
+  <strong>Habilitado:</strong>
+  <%= @edital.habilitado %>
+</p>
+
+<%= link_to 'Edit', edit_edital_path(@edital) %> |
+<%= link_to 'Back', editals_path %>

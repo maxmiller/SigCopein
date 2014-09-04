@@ -33,6 +33,11 @@ public class ProjetoDao extends GenericDao<Integer, Projeto>{
         getEntityManager().getTransaction().commit();
         return con;
     } 
+    
+   public List<Projeto> findByAno(int ano) {
+        return getEntityManager().createNamedQuery("Projeto.findByAno", Projeto.class).setParameter("ano", ano).getResultList();
+    }
+
    
     
 }

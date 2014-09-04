@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Siape:</strong>
+  <%= @servidor.siape %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @servidor.nome %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @servidor.email %>
+</p>
+
+<p>
+  <strong>Habilitado:</strong>
+  <%= @servidor.habilitado %>
+</p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @servidor.cpf %>
+</p>
+
+<p>
+  <strong>Lattes:</strong>
+  <%= @servidor.lattes %>
+</p>
+
+<%= link_to 'Edit', edit_servidor_path(@servidor) %> |
+<%= link_to 'Back', servidors_path %>

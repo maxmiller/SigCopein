@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Servidor.findByCpf", query = "SELECT s FROM Servidor s WHERE s.cpf = :cpf"),
     @NamedQuery(name = "Servidor.findByLattes", query = "SELECT s FROM Servidor s WHERE s.lattes = :lattes")})
 public class Servidor implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "servidorId")
+    private List<Despacho> despachoList;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "siape")
@@ -182,6 +184,15 @@ public class Servidor implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.Servidor[ servidorId=" + servidorId + " ]";
+    }
+
+    @XmlTransient
+    public List<Despacho> getDespachoList() {
+        return despachoList;
+    }
+
+    public void setDespachoList(List<Despacho> despachoList) {
+        this.despachoList = despachoList;
     }
     
 }

@@ -73,11 +73,15 @@ public class ProjetoService {
         return dao.findAll();
     }
 
+    public List<Projeto> findByAno(int ano) {
+        return dao.findByAno(ano);
+    }
+
     public Projeto findById(int parseInt) {
         return dao.getById(parseInt);
     }
-    
-    public Connection getConnection(){
+
+    public Connection getConnection() {
         return dao.getConnectionProjeto();
     }
 }

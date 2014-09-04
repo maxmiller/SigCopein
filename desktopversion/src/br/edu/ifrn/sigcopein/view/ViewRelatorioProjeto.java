@@ -18,6 +18,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -113,7 +114,7 @@ public class ViewRelatorioProjeto extends javax.swing.JDialog {
         Connection connection = null;
 		try {
 		
-			String reportName = "br/edu/ifrn/sigcopein/relatorio/listaProjeto";
+			String reportName = "src/br/edu/ifrn/sigcopein/report/listaProjeto";
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			connection = service.getConnection(); // opens a jdbc connection
                         parameters.put("pANO", Integer.parseInt(cbAno.getSelectedItem().toString()));
@@ -122,13 +123,9 @@ public class ViewRelatorioProjeto extends javax.swing.JDialog {
 			// fills compiled report with parameters and a connection
 			JasperPrint print = JasperFillManager.fillReport(reportName + ".jasper", parameters, connection);
 			// exports report to pdf
-			JRExporter exporter = new JRPdfExporter();
-                        
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
-			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, new FileOutputStream(reportName + ".pdf")); // your output goes here
+                        JasperViewer.viewReport(print);
                         
 			
-			exporter.exportReport();
  
 		} catch (Exception e) {
 			throw new RuntimeException("It's not possible to generate the pdf report.", e);

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaProjeto_main" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fab7deec-3444-43ee-9544-fec25b487b12">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pANO" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+     projeto.`projeto_id` AS projeto_projeto_id,
+     projeto.`nome` AS projeto_nome,
+     projeto.`data_inicio` AS projeto_data_inicio,
+     projeto.`data_fim` AS projeto_data_fim,
+     projeto.`edital_id` AS projeto_edital_id,
+     edital.`edital_id` AS edital_edital_id,
+     edital.`descricao` AS edital_descricao
+FROM
+     `edital` edital INNER JOIN `projeto` projeto ON edital.`edital_id` = projeto.`edital_id`
+WHERE
+     YEAR(data_inicio) = $P{pANO}]]>
+	</queryString>
+	<field name="projeto_projeto_id" class="java.lang.Integer"/>
+	<field name="projeto_nome" class="java.lang.String"/>
+	<field name="projeto_data_inicio" class="java.sql.Date"/>
+	<field name="projeto_data_fim" class="java.sql.Date"/>
+	<field name="projeto_edital_id" class="java.lang.Integer"/>
+	<field name="edital_edital_id" class="java.lang.Integer"/>
+	<field name="edital_descricao" class="java.lang.String"/>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="100" height="20" uuid="6dd1df2b-d3e4-4c83-b25d-41f5586be808"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="11a64f79-8be5-4d1f-bfb1-e190c192a718"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="100" y="0" width="215" height="20" uuid="7fa0bfc6-4c1d-4b2e-813c-446429d6da99"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="100" y="0" width="215" height="20" uuid="e9d12b5c-9a80-4be9-961f-20ffb555bd11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="315" y="0" width="66" height="20" uuid="69df52d3-4c2e-4cdf-b28a-e92af9d3519e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="381" y="0" width="66" height="20" uuid="bbf2cff9-cb0b-427b-ac5d-ec108272c456"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="381" y="0" width="66" height="20" uuid="9908a89c-737d-4059-8717-7f0939ef2bd2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fim]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="447" y="0" width="108" height="20" uuid="8adb4de1-9099-473d-8b40-955cd099654c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="447" y="0" width="108" height="20" uuid="85b4fff7-aec5-4b7d-bad1-68a3377914c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Edital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="0" width="66" height="20" uuid="769afd41-f0d6-4fce-8142-f09352076e61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="100" height="20" uuid="f1659849-125e-408a-b023-38dfa43d7597"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="100" y="0" width="215" height="20" uuid="5f917dfa-3284-40e1-a71d-2a1f12b2b845"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="315" y="0" width="66" height="20" uuid="c719b764-7045-4d52-b1dd-1e9c8148f5d8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="381" y="0" width="66" height="20" uuid="25a16ea3-c984-44a6-b5f0-8d1a4253cbd6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="447" y="0" width="108" height="20" uuid="871a5a2c-30c6-4c83-9c8b-f25501b2709f"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="2" width="100" height="20" uuid="fd2f45b9-86ce-447a-a1a8-7c2c4326c96f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{projeto_projeto_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="215" height="20" uuid="705aafbc-637a-4e29-85fa-4eeeba9d34ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{projeto_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="315" y="2" width="66" height="20" uuid="1502457f-ad3d-400f-bb36-22a932de40a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{projeto_data_inicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="381" y="0" width="66" height="20" uuid="dad2c77c-28c7-43c0-82b9-e04477294aaa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{projeto_data_fim}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="2" width="108" height="20" uuid="57ec10a8-bb7a-48f9-b1ea-73dc5e11fce2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{edital_descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

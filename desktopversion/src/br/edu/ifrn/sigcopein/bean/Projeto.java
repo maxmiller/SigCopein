@@ -43,8 +43,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projeto.findByDataFim", query = "SELECT p FROM Projeto p WHERE p.dataFim = :dataFim"),
     @NamedQuery(name = "Projeto.findByHabilitado", query = "SELECT p FROM Projeto p WHERE p.habilitado = :habilitado"),
     @NamedQuery(name = "Projeto.findByNomeAnexo", query = "SELECT p FROM Projeto p WHERE p.nomeAnexo = :nomeAnexo"),
-    @NamedQuery(name = "Projeto.findBySelecionado", query = "SELECT p FROM Projeto p WHERE p.selecionado = :selecionado")})
+    @NamedQuery(name = "Projeto.findBySelecionado", query = "SELECT p FROM Projeto p WHERE p.selecionado = :selecionado"),
+    @NamedQuery(name = "Projeto.findByAno", query = "SELECT p FROM Projeto p WHERE FUNC('YEAR', p.dataInicio) = :ano"),
+
+})
+
 public class Projeto implements Serializable {
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "projeto")
+    private byte[] projeto;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,10 +70,6 @@ public class Projeto implements Serializable {
     @Column(name = "data_fim")
     @Temporal(TemporalType.DATE)
     private Date dataFim;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "projeto")
-    private byte[] projeto;
     @Basic(optional = false)
     @Column(name = "habilitado")
     private boolean habilitado;
@@ -133,13 +137,6 @@ public class Projeto implements Serializable {
         this.dataFim = dataFim;
     }
 
-    public byte[] getProjeto() {
-        return projeto;
-    }
-
-    public void setProjeto(byte[] projeto) {
-        this.projeto = projeto;
-    }
 
     public boolean getHabilitado() {
         return habilitado;
@@ -223,6 +220,14 @@ public class Projeto implements Serializable {
     @Override
     public String toString() {
         return "br.edu.ifrn.sigcopein.bean.Projeto[ projetoId=" + projetoId + " ]";
+    }
+
+    public byte[] getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(byte[] projeto) {
+        this.projeto = projeto;
     }
     
 }

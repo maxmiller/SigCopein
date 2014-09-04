@@ -12,4 +12,6 @@ package br.edu.ifrn.sigcopein.util;
  */
 public class SigUtils {
     public static final String BOLSISTA = "bolsista";
+    public static final String PERSISTENCE_UNIT = "SigCOPEINPU";
+   
 }
